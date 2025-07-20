@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>위험성평가 간편화 시스템</title>
+  <script src="/static/scripts.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 p-6">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold">위험성평가 간편화 시스템</h1>
+      <button id="guideToggleBtn" onclick="toggleGuide()" class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1.5 rounded text-sm">
+        가이드 보기</button>
+    </div>
+
+    <!-- 가이드 내용 박스 -->
+    <div id="guideBox" class="hidden border border-gray-300 rounded p-4 bg-gray-50 text-sm leading-relaxed">
+      <h2 class="font-bold text-base mb-2">🔍 웹사이트 사용 가이드</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>설비명을 입력하면 자동완성 리스트가 나타납니다.</li>
+        <li>자동완성 리스트 중 설비를 선택하고 "결정" 버튼을 클릭하면 설비별 유해위험요인이 표시됩니다.</li>
+        <li>체크박스로 항목을 선택하고, 각 항목의 평가(적정/보완)를 지정합니다.</li>
+        <li>"추가" 버튼을 누르면 아래 결과표에 항목이 추가됩니다.</li>
+        <li>"삭제" 버튼으로 개별 항목의 제거가 가능하며, "다운로드"를 통해 위험성평가 결과 word 문서 생성도 가능합니다.</li>
+        <li>본 서비스의 유해위험요인 및 개선사항은 한국산업안전보건공단 위험성평가시스템 KRAS(
+          <a href="https://kras.kosha.or.kr/kras24/" target="_blank" class="text-blue-600 underline hover:text-blue-800">
+          https://kras.kosha.or.kr/kras24/</a>
+          )을 참고하여 삽입되었습니다.</li>
+        <li>본 서비스는 간단한 일시적 활용에 중점을 두고 제작한 위험성평가 간편화 툴로, 지속적이고 체계적인 위험성평가는 KRAS를 활용해주세요.</li>
+      </ul>
+    </div>
+
+
+    <!-- 검색창과 버튼 영역 -->
+    <div class="flex space-x-2 mb-4">
+      <input type="text" id="searchBox" list="equipmentList"
+             class="w-full border rounded-md px-3 py-2"
+             placeholder="설비명을 입력하세요" />
+      <datalist id="equipmentList"></datalist>
+
+      <button id="submitBtn"
+              class="bg-gray-200 rounded-md px-4 py-2 text-sm">결정</button>
+      <button id="addBtn"
+              class="bg-blue-500 text-white rounded-md px-4 py-2 text-sm">추가</button>
+      <form method="POST" action="/download" id="downloadForm">
+        <input type="hidden" name="data" id="dataField">
+        <button type="submit"
+                class="bg-green-500 text-white rounded-md px-4 py-2 text-sm ml-2">다운로드</button>
+      </form>
+    </div>
+
+    <!-- 위험요인 체크박스 영역 -->
+    <div id="checkboxArea" class="mb-6 space-y-2"></div>
+
+    <!-- 결과 테이블 -->
+    <table class="table-fixed w-full border-collapse text-sm">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="w-[100px] px-2 py-1 text-center whitespace-nowrap">설비</th>
+          <th class="w-[350px] px-2 py-1 text-left whitespace-nowrap">유해위험요인</th>
+          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">적정</th>
+          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">보완</th>
+          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">삭제</th>
+        </tr>
+      </thead>
+    </table>
+
+    <div class="max-h-60 overflow-y-auto border border-gray-200 mb-4 rounded">
+      <table class="table-fixed w-full text-sm">
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
