@@ -54,24 +54,24 @@
 
     <!-- 위험요인 체크박스 영역 -->
     <div id="checkboxArea" class="mb-6 space-y-2"></div>
-
     <!-- 결과 테이블 -->
-    <table class="table-fixed w-full border-collapse text-sm">
-      <thead class="bg-gray-100">
-        <tr>
-          <th class="w-[100px] px-2 py-1 text-center whitespace-nowrap">설비</th>
-          <th class="w-[350px] px-2 py-1 text-left whitespace-nowrap">유해위험요인</th>
-          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">적정</th>
-          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">보완</th>
-          <th class="w-[60px] px-2 py-1 text-center whitespace-nowrap">삭제</th>
-        </tr>
-      </thead>
-    </table>
-
-    <div class="max-h-60 overflow-y-auto border border-gray-200 mb-4 rounded">
+    <div class="border border-gray-300 rounded mb-4">
       <table class="table-fixed w-full text-sm">
-        <tbody id="resultBody"></tbody>
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="w-[100px] px-2 py-1 text-center">설비</th>
+            <th class="w-[350px] px-2 py-1 text-left">유해위험요인</th>
+            <th class="w-[60px] px-2 py-1 text-center">적정</th>
+            <th class="w-[60px] px-2 py-1 text-center">보완</th>
+            <th class="w-[60px] px-2 py-1 text-center">삭제</th>
+          </tr>
+        </thead>
       </table>
+      <div id="scrollContainer" class="max-h-60 overflow-y-auto">
+        <table class="table-fixed w-full text-sm">
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </body>

@@ -54,7 +54,7 @@ def generate_docx_file(data):
 
     # 기존 공란 행 채우기
     filled_rows = 0
-    for row in table.rows[3:]:
+    for row in table.rows[2:]:
         if all(cell.text.strip() == "" for cell in row.cells):
             if filled_rows < len(data):
                 # 기존 공란 행 삭제 후 새 행 삽입

@@ -94,6 +94,8 @@ function renderTable() {
     tbody.appendChild(tr);
   });
   document.getElementById("dataField").value = JSON.stringify(accumulatedData);
+
+  syncHeaderColumnForScrollbar();
 }
 
 function removeRow(index) {
@@ -111,5 +113,21 @@ function toggleGuide() {
     button.textContent = "가이드 보기";
   } else {
     button.textContent = "가이드 닫기";
+  }
+}
+
+function syncHeaderColumnForScrollbar() {
+  const thead = document.querySelector("thead tr");
+  const scrollDiv = document.querySelector("#scrollContainer");
+  const existingFake = document.querySelector("th.fake-scroll-spacer");
+
+  const hasScrollbar = scrollDiv.scrollHeight > scrollDiv.clientHeight;
+
+  if (hasScrollbar && !existingFake) {
+    const th = document.createElement("th");
+    th.className = "w-[10px] px-0 py-0 fake-scroll-spacer";
+    thead.appendChild(th);
+  } else if (!hasScrollbar && existingFake) {
+    existingFake.remove();
   }
 }
